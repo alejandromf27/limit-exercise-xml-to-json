@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from django.test import TestCase, Client
@@ -44,9 +45,9 @@ class XMLConversionTestCase(TestCase):
             self.assertIsInstance(form, XmlFileForm)
             # Testing data returned
             data = response.context['data']
-            self.assertEqual(data, {
+            self.assertEqual(data, json.dumps({
                 "Root": None,
-            })
+            }, indent=2))
 
     def test_api_convert_empty_document(self):
         with (TEST_DIR / Path('empty.xml')).open() as fp:
@@ -72,7 +73,7 @@ class XMLConversionTestCase(TestCase):
             self.assertIsInstance(form, XmlFileForm)
             # Testing data returned
             data = response.context['data']
-            self.assertEqual(data, TEST_ADDRESS)
+            self.assertEqual(data, json.dumps(TEST_ADDRESS, indent=2))
 
     def test_api_convert_addresses(self):
         with (TEST_DIR / Path('addresses.xml')).open() as fp:

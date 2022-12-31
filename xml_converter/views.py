@@ -1,3 +1,5 @@
+import json
+
 import xmltodict
 from django.shortcuts import render
 from xml_converter.forms import XmlFileForm
@@ -10,7 +12,7 @@ def upload_page(request):
         form = XmlFileForm(request.POST, request.FILES)
 
         if not form.is_valid():
-            context = {'form': form}
+            context = {'form': form, 'error': "Invalid form"}
             return render(request, TEMPLATE_HTML, context)
 
         xml_file = request.FILES.get('file', None)
@@ -20,7 +22,7 @@ def upload_page(request):
             context = {'form': form, 'error': "Invalid XML"}
             return render(request, TEMPLATE_HTML, context)
 
-        context = {'form': form, 'data': obj}
+        context = {'form': form, 'data': json.dumps(obj, indent=2)}
         return render(request, TEMPLATE_HTML, context)
 
     form = XmlFileForm()
