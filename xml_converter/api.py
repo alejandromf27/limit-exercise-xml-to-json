@@ -14,6 +14,7 @@ class ConverterViewSet(ViewSet):
     @action(methods=["POST"], detail=False, url_path="convert")
     def convert(self, request):
         xml_file = request.data.get('file', None)
+        # Converting xml to dict and handling exceptions
         try:
             obj = xmltodict.parse(xml_file.read())
         except BaseException:

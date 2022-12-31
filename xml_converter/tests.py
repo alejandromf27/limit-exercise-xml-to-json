@@ -54,7 +54,9 @@ class XMLConversionTestCase(TestCase):
             response = self.client.post('/api/converter/convert/', {
                 'file': fp,
             })
+            # Testing response status code
             self.assertEqual(response.status_code, 200)
+            # Testing data returned
             self.assertEqual(response.json(), {
                 "Root": None,
             })
@@ -80,5 +82,7 @@ class XMLConversionTestCase(TestCase):
             response = self.client.post('/api/converter/convert/', {
                 'file': fp,
             })
+            # Testing response status code
             self.assertEqual(response.status_code, 200)
+            # Testing data returned
             self.assertEqual(response.data, TEST_ADDRESS)
