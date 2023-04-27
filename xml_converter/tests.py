@@ -31,6 +31,7 @@ class XMLConversionTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
+    # Testing example
     def test_connected_convert_empty_document(self):
         with (TEST_DIR / Path('empty.xml')).open() as fp:
             response = self.client.post('/connected/', {
